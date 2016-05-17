@@ -1,0 +1,662 @@
+<link rel="import" href="../taaabs-themes/taaabs-dark-theme.html">
+<dom-module id="taaabs-csv-schema-config">
+  <template>
+
+    <style include="taaabs-dark-theme"></style>
+    <style>
+
+      :host{
+        width: 100%;
+        display: block
+      }
+
+      /*////////////*/
+      /* UPPER PART */
+      /*////////////*/
+
+      :host #upperContainer{
+        max-width: 1000px;
+        margin: 0 auto;
+        display: block;
+      }
+
+      :host .editIcons{
+        float:right;
+        cursor: pointer;
+      }
+
+      :host .subTitle{
+        text-transform: uppercase;
+        font-weight: normal;
+        font-size: 10px;
+      }
+
+      :host #globalTable{
+        display: table;
+        width: 100%;
+        table-layout: fixed;
+      }
+
+        :host #globalTable > div{
+          display: table-row;
+        }
+
+          :host #globalTable > div > div{
+            display: table-cell;
+          }
+
+          :host #globalTable .gTHeader{
+            text-align: center;
+            padding: 0.38em 1em 0.3em 1em;
+          }
+
+          :host #globalTable .gTTop{
+            width: 50%;
+            border-left: dotted 1px grey;
+            border-bottom: dotted 1px grey;
+            padding: 1em;
+          }
+
+          :host #globalTable .gTBottom{
+            width: 33%;
+            border-left: dotted 1px grey;
+            padding: 1em;
+          }
+
+      :host .sampleCells{
+        display: table-cell;
+        width: 200px;
+        padding: 0.4em 1em 0.1em 1em;
+        overflow-x: none;
+        overflow-y: none;
+      }
+    </style>
+
+    <!-- /////////////////////////////////////////////////////////////// -->
+    <!-- HEADER & GLOBAL SCHEMA CONFIGURATION (ID, LABEL, SEPARATOR ...) -->
+    <!-- /////////////////////////////////////////////////////////////// -->
+
+    <div id="upperContainer">
+      <iron-icon icon="icons:check" class="editIcons fgGreen fgGreenH" id="submit" on-click="_submitClicked"></iron-icon>
+      <h4> {{_i18n.iCHeader.default}} ( <span class="subTitle">{{csvSchema.id}}</span> )</h4>
+
+      <h5> <span>{{_i18n.iCSubHeader1.default}}</span> </h5>
+
+      <div id="globalTable">
+        <div>
+          <div class="gTTop" style="border-left: none;">
+            <div class="gTHeader">
+              {{_i18n.iCConfLabel.default}}
+            </div>
+
+            <!-- CSVSCHEMA ID & LABEL -->
+            <div>
+              <input class="inputWithIcon" value="{{csvSchema.id::input}}">
+                <iron-icon class="inputWithIconIcon" icon="icons:create"></iron-icon>
+              </input></br>
+              <input class="inputWithIcon" value="{{csvSchema.label::input}}">
+                <iron-icon class="inputWithIconIcon" icon="icons:create"></iron-icon>
+              </input>
+            </div>
+
+          </div>
+          <div class="gTTop">
+            <div class="gTHeader">
+              {{_i18n.iCSepSymbol.default}}
+            </div>
+            <div>
+              <center>
+
+                <!-- CSVSCHEMA SEPARATOR -->
+                <select style="width: 100%;" id="separatorSelect" on-click="_ssChanged" >
+                  <option value=";"> <span>{{_i18n.iCSemiColon.default}}</span> </option>
+                  <option value=","> <span>{{_i18n.iCComma.default}}</span> </option>
+                  <option value="\t"> <span>{{_i18n.iCTabulation.default}}</span> </option>
+                  <option value=" " selected> <span>{{_i18n.iCSpace.default}}</span> </option>
+                  <option value="|"> <span>{{_i18n.iCPipe.default}}</span> </option>
+                </select>
+
+              </center>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="gTBottom" style="border-left: none">
+            <div class="gTHeader">
+              {{_i18n.iCColHeader.default}}
+            </div>
+
+            <!-- CSVSCHEMA COLUMN HEADER -->
+            <input type="checkbox" style="margin: 0 auto;float:none" checked id="columnHeaderCheck" on-click="_chChanged"></input>
+
+          </div>
+          <div class="gTBottom">
+            <div class="gTHeader">
+              {{_i18n.iCComment.default}}
+            </div>
+            <div style="display:block">
+
+              <!-- CSVSCHEMA COMMENT SYMBOL -->
+              <input class="inputWithIcon" value="{{commentSymbol::input}}">
+                <iron-icon class="inputWithIconIcon fgDarkBlue" icon="icons:create"></iron-icon>
+              </input>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <h5 style="margin-top:30px;"> <span>{{_i18n.iCSubHEader2.default}}</span> </h5>
+    </div>
+
+    <!-- /////////////// -->
+    <!-- COLUMN SETTINGS -->
+    <!-- /////////////// -->
+
+    <div id="columnSettings" style="display: block; float:left;width: 90%; overflow-x: auto; margin-left: 5%;">
+      <div style="position: relative; display:table; width: 100%; table-layout: fixed; ">
+        <template is="dom-repeat" items="{{csvSchema.columns}}">
+          <div style="display:table-cell; width: 200px">
+            <div style="padding: 0.38em 0 0.3em 0; text-align:center;" class="bgDarkBlue fgWhite">
+              {{item.title}}
+            </div>
+            <div style="padding: 1em;">
+
+              <!-- COLUMNS[INDEX] NAME -->
+              <input title="{{_i18n.iCColName.default}}" placeholder="{{_i18n.iCColName.default}}"
+                style="float:right" class="inputWithIcon" value="{{item.name::input}}">
+                <iron-icon class="inputWithIconIcon fgDarkBlue" icon="icons:create"></iron-icon>
+              </input>
+
+            </div>
+            <div style="padding: 2em 1em 2em 1em;">
+
+              <!-- COLUMNS[INDEX] NULL -->
+              <input title="{{_i18n.iCColDefault.default}}" placeholder="{{_i18n.iCColDefault.default}}"
+                style="float:right" class="inputWithIcon" value="{{item.null::input}}">
+                <iron-icon class="inputWithIconIcon fgDarkBlue" icon="icons:create"></iron-icon>
+              </input>
+
+            </div>
+            <div style="padding: 1em;">
+
+              <!-- COLUMNS[INDEX] DATATYPE -->
+              <select on-change="_dtChanged" title="{{_i18n.iCColDataType.default}}">
+                <option selected value="xsd:string">String</option>
+                <option value="xsd:decimal">Number</option>
+                <option value="json">JSON</option>
+              </select>
+
+            </div>
+          </div>
+        </template>
+      </div>
+    </div>
+
+    <!-- //////////////////////////////////////// -->
+    <!-- SAMPLE TABLE ( FILLED BY _updateSample ) -->
+    <!-- //////////////////////////////////////// -->
+
+    <div style="display: block; float:left;width: 90%; overflow-x:hidden; overflow-y:scroll; max-height: 500px; margin-left: 5%;">
+      <div id="sampleTarget" style="position: relative; display:table; width: 100%; table-layout: fixed; ">
+
+      </div>
+    </div>
+
+  </template>
+
+  <script>
+
+
+    Polymer({
+
+      is: 'taaabs-csv-schema-config',
+
+      /**
+      * Fired when the submit button is clicked.
+      *
+      * @event CONFIG_EDITED
+      */
+
+      properties: {
+
+        /**
+        * Current csv schema used/edited by the user.
+        *
+        * @attribute csvSchema
+        * @type Object
+        */
+        csvSchema: {
+          type: Object,
+          value: null
+        },
+
+        /**
+        * The `file-reader` component of `taaabs-csv-collecotr-files`.
+        *
+        * @attribute fileReader
+        * @type Object
+        */
+        fileReader: {
+          type: Object,
+          value: null
+        },
+
+        /**
+        * Array containing the first row of the csv file (if there is any).
+        *
+        * @attribute _firstLine
+        * @type Array
+        */
+        _firstLine: {
+          type: Array,
+          notify: true,
+          value: []
+        },
+
+        ///////////////
+        // _i18n VARS //
+        ///////////////
+
+        /**
+        * Localization object.
+        *
+        * @attribute _i18n
+        * @type Object
+        */
+        _i18n: {
+            type: Object,
+            value: {
+              "errorModelId":{
+                  "default":"The configuration Id is invalid. It might already exists or contains an invalid character (space, backslash, ...).",
+                  "en":"The configuration Id is invalid. It might already exists or contains an invalid character (space, backslash, ...).",
+                  "fr":"L'identifiant de la configuration est invalide. Ce dernier existes peut-être déjà, ou contiens un caractère interdit (espace, barre oblique inversée, ...)."
+              },
+              "iCHeader":{
+            	  "default":"Import configuration",
+            	  "en":"Import configuration",
+            	  "fr":"Configuration d'import"
+            	},
+            	"iCSubHeader1":{
+            	  "default":"Global parameters",
+            	  "en":"Global parameters",
+            	  "fr":"Paramètres généraux"
+            	},
+            	"iCConfId":{
+            	  "default":"Configuration ID",
+            	  "en":"Configuration ID",
+            	  "fr":"ID de la configuration"
+            	},
+            	"iCConfLabel":{
+            	  "default":"Configuration ID & Label",
+            	  "en":"Configuration ID & Label",
+            	  "fr":"ID et label de la configuration"
+            	},
+            	"iCFileSample":{
+            	  "default":"Trace file name (sample)",
+            	  "en":"Trace file name (sample)",
+            	  "fr":"Exemple de fichier de trace"
+            	},
+            	"iCSepSymbol":{
+            	  "default":"Separator symbol",
+            	  "en":"Separator symbol",
+            	  "fr":"Symbole séparateur"
+            	},
+            	"iCSemiColon":{
+            	  "default":"Semicolon (;)",
+            	  "en":"Semicolon (;)",
+            	  "fr":"Point-virgule (;)"
+            	},
+            	"iCComma":{
+            	  "default":"Comma (,)",
+            	  "en":"Comma (,)",
+            	  "fr":"Virgule (,)"
+            	},
+            	"iCTabulation":{
+            	  "default":"Tabulation (  )",
+            	  "en":"Tabulation (  )",
+            	  "fr":"Tabulation (  )"
+            	},
+            	"iCSpace":{
+            	  "default":"Space ( )",
+            	  "en":"Space ( )",
+            	  "fr":"Espace ( )"
+            	},
+            	"iCPipe":{
+            	  "default":"Pipe (|)",
+            	  "en":"Pipe (|)",
+            	  "fr":"Pipe (|)"
+            	},
+            	"iCColHeader":{
+            	  "default":"Columns header",
+            	  "en":"Columns header",
+            	  "fr":"En-tête de colonnes"
+            	},
+            	"iCComment":{
+            	  "default":"Comment symbol",
+            	  "en":"Comment symbol",
+            	  "fr":"Symbole de commentaire"
+            	},
+            	"iCSubHEader2":{
+            	  "default":"Columns parameters",
+            	  "en":"Columns parameters",
+            	  "fr":"Paramètres de colonnes"
+            	},
+            	"iCColName":{
+            	  "default":"Name",
+            	  "en":"Name",
+            	  "fr":"Nom"
+            	},
+            	"iCColDataType":{
+            	  "default":"Data type",
+            	  "en":"Data type",
+            	  "fr":"Type"
+            	},
+            	"iCColDefault":{
+            	  "default":"Default",
+            	  "en":"Default",
+            	  "fr":"Défaut"
+            	}
+            },
+            notify: true
+        },
+
+        /**
+        * Localization.
+        * fr, en.
+        *
+        * @attribute language
+        * @type String
+        */
+        language: {
+            type: String,
+            notify: true,
+            observer: "_languageChanged"
+        }
+      },
+
+      ready: function(){
+
+        var that = this;
+
+        // Synchronizes the column header table and the sample table scrolling.
+        this.$.columnSettings.addEventListener('scroll', function(e){
+          that.$.sampleTarget.parentElement.scrollLeft = that.$.columnSettings.scrollLeft;
+        });
+
+      },
+
+      /**
+      * Triggered when the language option is changed.
+      * Switches every text into the new language.
+      *
+      * @method _languageChanged
+      */
+      _languageChanged: function(){
+        for(var prop in this._i18n) {
+          var tmp = "_i18n."+prop+".default";
+          this.set(tmp, this._i18n[prop][this.language]);
+        }
+      },
+
+      /////////////////
+      // USER EVENTS //
+      /////////////////
+
+      /**
+      * Triggered when `columnHeaderCheck value change.
+      * Redo the parsing.
+      *
+      * @method _columnHeaderCheckChanged
+      */
+      _chChanged: function(){
+        this.csvSchema.columnHeader = this.$.columnHeaderCheck.checked;
+        this._parseFiles();
+      },
+
+      /**
+      * Triggered when the user changes the separator type.
+      *
+      * @method _separatorSelectChanged
+      */
+      _ssChanged: function(){
+        this.set('csvSchema.separator',this.$.separatorSelect.options[this.$.separatorSelect.selectedIndex].value);
+        this._parseFiles();
+      },
+
+      /**
+      * Triggered when the user changes the dataType.
+      *
+      * @method _dtChanged
+      */
+      _dtChanged: function(e){
+        e.model.item.dataType = e.target.value;
+      },
+
+      _submitClicked: function(){
+        this.fire('CONFIG_EDITED');
+      },
+
+      ///////////////////////
+      // UTILITY FUNCTIONS //
+      ///////////////////////
+
+      /**
+      * Set `parsedSample` and `firstLine` by parsing the first file according to `separator`.
+      *
+      * @method _parseFiles
+      *
+      * @see csvToArray.js
+      */
+      _parseFiles: function(){
+
+        // Create a pointer to `this` for later.
+        var that = this;
+
+        // Return function from getSample (see later)
+        var callback = {
+
+          // If success (file read)
+          onload: function(evt){
+
+            // We use a new web worker.
+            var worker = new Worker(that.resolveUrl('csvToArray.js'));
+
+            // When the worker has finished
+            worker.addEventListener('message', function(e) {
+                var parsedSample = e.data;
+
+                // Set this.parsedSample
+                that._parsedSample = parsedSample;
+
+                if( that.csvSchema.commentSymbol === undefined || that.csvSchema.commentSymbol === ''){
+                  that._firstLine = [];
+                  for(var i = 0; i < parsedSample[0].length; i++){
+                    that.push('_firstLine',parsedSample[0][i]);
+                  }
+                  that._updateShema();
+                }
+                worker.terminate();
+              }, false);
+
+            // We launch the web worker.
+            worker.postMessage({strData: evt.target.result, strDelimiter: that.csvSchema.separator});
+          },
+          onerror: function(evt){ },
+          onprogress: function(evt){ }
+        }
+
+        // Get a sample of the first file.
+        that.fileReader.getSample(0, callback);
+      },
+
+      /**
+      * Update `columns` by picking its values from the first file or the `csvSchema`.
+      *
+      * @method _updateShema
+      */
+      _updateShema: function(){
+        if(this.csvSchema.columns.length !==  this._firstLine.length){
+
+          this.csvSchema.columns = [];
+
+          if(this.csvSchema.columnHeader){
+
+            for(var i = 0; i < this._firstLine.length; i++){
+              var obj = {
+                "name":this._firstLine[i],
+                "title":this._firstLine[i],
+                "dataType":"xsd:string",
+                "null":""
+              };
+              this.push('csvSchema.columns', obj);
+            }
+
+          }
+          else{
+            for(var i = 0; i < this._firstLine.length; i++){
+              var obj = {
+                "name": "col_"+i,
+                "title": "col_"+i,
+                "dataType":"xsd:string",
+                "null":""
+              };
+              this.push('csvSchema.columns', obj);
+            }
+          }
+          this.set('csvSchema.columns', this.csvSchema.columns);
+        }
+        this._updateSample();
+      },
+
+      /**
+      * Get sample values from the first file for each column.
+      *
+      * @method _updateSample
+      */
+      _updateSample: function(){
+
+        var trs = this.$.sampleTarget.innerHTML = '';
+
+        var i = 0;
+        if( this.csvSchema.columnHeader ) i = 1;
+
+        while(i < this._parsedSample.length && i < 30){
+          var row = document.createElement('div');
+          row.style.display = 'table-row';
+          row.style.width = "100%";
+
+          for(var j = 0; j < this._parsedSample[i].length; j++){
+
+            var div = document.createElement('div');
+            div.classList.add('sampleCells');
+            div.textContent = this._parsedSample[i][j];
+
+            row.appendChild(div);
+          }
+          this.$.sampleTarget.appendChild(row);
+          i = i + 1;
+        }
+      },
+
+      /**
+      * Guess the separator of a csvFile, by getting the highest occurence from  several classic separator (';',',','|',...).
+      *
+      * @method _guessSeparator
+      *
+      * @param {!optionnal} that The `taaabs-csv-schema`.
+      */
+      _guessSeparator: function(){
+
+        // Create a pointer to `this` for later.
+        var that = this;
+
+        // Callback functions for later.
+        var callback = {
+
+          // Triggered when `getSample` succeed.
+          onload: function(evt){
+
+            // Create an Array  with the lines of the file.
+            var s = evt.target.result.split("\n");
+
+            // Create an empty string that will be filled with each line.
+            var new_string = "";
+
+            // Concatenate eahc line of the sample with `new_string`.
+            for( var i = 0; i < 10; i++ ){
+              new_string += s[i];
+            }
+
+            // Counter of max occurence of a symbol in `new_string`.
+            var count = -2;
+
+            // Array of the symbols to check.
+            var symbols = [",",";","\t"," ",":"];
+
+            // Index of the symbol in `symbols` which is the most occuring in `new_string`.
+            var symbol = -1;
+
+            // Loop for each symbol and count the occurences.
+            for( var i = 0; i < symbols.length; i++){
+              var tmp_count = new_string.split(symbols[i]).length;
+              if( tmp_count > count ){
+                count = tmp_count;
+                symbol = i;
+              }
+            }
+
+            // Set `csvSchema.separator` with the most occuring symbol.
+            that.set('csvSchema.separator',symbols[symbol]);
+
+            // Set the <select> element corresponding to the separator with the guessed separator.
+            var opts = that.$.separatorSelect.children;
+            for(var i = 0; i < opts.length; i++){
+              if(opts[i].value === that.csvSchema.separator){
+                that.$.separatorSelect.selectedIndex = i;
+                i = opts.length + 1;
+              }
+            }
+          },
+          onerror: function(evt){ },
+          onprogress: function(evt){ }
+        }
+
+        // Get a sample from the first file of `files`.
+        that.fileReader.getSample(0, callback);
+      },
+
+      /**
+      * Called when user choses to create a new csvSchema.
+      *
+      * Initialize a new csvSchema.
+      *
+      * @method _createCsvSchema
+      */
+      _createCsvSchema: function( schemaId ){
+
+        // Create a new default csvSchema.
+        var csvSchema = {
+          "id": schemaId,
+          "label": "Default Label",
+          "columnHeader": true,
+          "separator": ";",
+          "commentSymbol": "",
+          "columns": []
+        };
+
+        this.set('csvSchema', csvSchema);
+
+        // Guess & Set the separator of the csv files.
+        this._guessSeparator();
+
+        // Parse the first file with `csvSchema.separator`.
+        this._parseFiles();
+
+        return this.csvSchema;
+      },
+
+    });
+  </script>
+
+</dom-module>

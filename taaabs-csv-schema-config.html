@@ -526,6 +526,20 @@
           }
           this.set('csvSchema.columns', this.csvSchema.columns);
         }
+        else{
+
+          if(this.csvSchema.columnHeader){
+            for(var i = 0; i < this.csvSchema.columns.length; i++){
+              this.set('csvSchema.columns.'+i+'.title',this._firstLine[i]);
+            }
+          }
+          else{
+            for(var i = 0; i < this.csvSchema.columns.length; i++){
+              j = i + 1;
+              this.set('csvSchema.columns.'+i+'.title','column #'+j);
+            }
+          }
+        }
         this._updateSample();
       },
 

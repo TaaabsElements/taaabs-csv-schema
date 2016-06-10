@@ -14,7 +14,7 @@
     </style>
 
     <div style="width: 1000px; margin: 0 auto;">
-      <taaabs-csv-collector-steps id="tccs" steps=[[_steps]]></taaabs-csv-collector-steps>
+      <taaabs-csv-collector-steps id="tccs" language="[[language]]" steps="[[_steps]]"></taaabs-csv-collector-steps>
     </div>
 
     <iron-pages selected="{{_pageIndex}}" style="margin-top: 30px;">
@@ -203,8 +203,7 @@
         */
         language: {
             type: String,
-            notify: true,
-            observer: "_languageChanged"
+            notify: true
         }
       },
 

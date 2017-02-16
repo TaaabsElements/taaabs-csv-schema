@@ -1,0 +1,14 @@
+{
+    "en": {
+      "empty-id": "You must set a <b> import configuration id</b>.",
+      "invalid-id": "The import configuration id is invalid.",
+      "save-next-loading": "Uploading the new import configuration...",
+      "save-next-loading-success": "Upload succeed."
+    },
+    "fr": {
+      "empty-id": "Vous devez définir un <b>ID de configuration d'import</b>.",
+      "invalid-id": "L'ID de configuration d'import est invalide.",
+      "save-next-loading": "Téléversement de la configuration d'import...",
+      "save-next-loading-success": "Téléversement réussi."
+    }
+}

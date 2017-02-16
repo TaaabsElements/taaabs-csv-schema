@@ -1,6 +1,6 @@
 {
   "name": "taaabs-csv-schema",
-  "version": "1.0.0",
+  "version": "1.2.0",
   "description": "A graphical element in which the user can edit the properties of a trace csv file.",
   "keywords": [
     "web-components",
@@ -17,7 +17,16 @@
   "main": "taaabs-csv-schema.html",
   "license": "https://github.com/TaaabsElements/taaabs-csv-schema/LICENSE",
   "dependencies": {
-    "polymer": "polymer/polymer#^1.0.0"
+    "polymer": "polymer/polymer",
+    "taaabs-themes": "TaaabsElements/taaabs-themes",
+    "paper-input": "PolymerElements/paper-input",
+    "paper-checkbox": "PolymerElements/paper-checkbox",
+    "paper-dropdown-menu": "PolymerElements/paper-dropdown-menu",
+    "iron-icon": "PolymerElements/iron-icon",
+    "iron-icons": "PolymerElements/iron-icons",
+    "app-localize-behavior": "PolymerElements/app-localize-behavior",
+    "notify-toast-behavior": "Yepikae/notify-toast-behavior",
+    "paper-button": "PolymerElements/paper-button"
   },
   "devDependencies": {
     "iron-component-page": "polymerelements/iron-component-page#^1.0.0",

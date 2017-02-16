@@ -1,0 +1,38 @@
+{
+    "en": {
+      "title": "Import configuration",
+      "error-message": "Invalid input",
+      "id-label": "ID of the configuration",
+      "id-help": "<br/>The import configuration ID must be unique.<br/> Once the mapping between the csv file and the <a href=\"https://kernel-for-trace-based-systems.readthedocs.io/en/latest/concepts/trace_model.html\" target=\"_blank\"> ktbs trace model</a> done, this id will set the trace model id.<br/><br/>",
+      "label-label": "Label of the configuration",
+      "label-help": "<br/>The import configuration label offers more space to define the trace model origin.<br/><br/>",
+      "col-header": "Column header",
+      "separator": "Separator",
+      "separator-semicolon": "Semicolon (;)",
+      "separator-comma": "Comma (,)",
+      "separator-tab": "Tabulation (  )",
+      "separator-space": "Space ( )",
+      "separator-pipe": "Pipe (|)",
+      "col-name": "Name",
+      "col-default": "Value if empty",
+      "col-datatype": "Datatype"
+    },
+    "fr": {
+      "title": "Configuration d'import",
+      "error-message": "Entrée invalide",
+      "id-label": "ID de la configuration",
+      "id-help": "<br/>L'identifiant de configuration d'import doit être unique.<br/> Une fois la correspondance entre le fichier de traces csv et le <a href=\"https://kernel-for-trace-based-systems.readthedocs.io/en/latest/concepts/trace_model.html\" target=\"_blank\"> modèle de traces ktbs</a> faite, l'identifiant de configuration sera utilisé comme identifiant du modèle de trace ktbs.<br/><br/>",
+      "label-label": "Label de la configuration",
+      "label-help": "<br/>Le label de configuration d'import permet d'apporter plus de précision sur cette dernière.<br/><br/>",
+      "col-header": "En-tête de colonne",
+      "separator": "Séparateur",
+      "separator-semicolon": "Point-virgule (;)",
+      "separator-comma": "Virgule (,)",
+      "separator-tab": "Tabulation (  )",
+      "separator-space": "Espace ( )",
+      "separator-pipe": "Trait vertical (|)",
+      "col-name": "Nom",
+      "col-default": "Valeur si vide",
+      "col-datatype": "Type de donnée"
+    }
+}

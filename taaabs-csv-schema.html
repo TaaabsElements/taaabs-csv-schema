@@ -170,11 +170,11 @@
         // Load i18n json.
         this.loadResources(this.resolveUrl('./languages/locales.json'));
         // When the user chooses a step.
-        this.$.tccs.addEventListener('STEP_CLICKED', function(e) {
+        this.$.tccs.addEventListener('step-clicked', function(e) {
           this._goToPage(e.detail.index);
         }.bind(this))
         // When the user chooses a file.
-        this.$.tccf.addEventListener('FILES_SELECTED', function() {
+        this.$.tccf.addEventListener('files-selected', function() {
           // TODO : Remove later
           // this._filereader.setCsvUtils({
           //   file_index: 0,
@@ -201,14 +201,14 @@
           this._goToPage(1);
         }.bind(this));
         // When the user chooses to create a new schema.
-        this.$.tccc.addEventListener('CREATE_SCHEMA', function() {
+        this.$.tccc.addEventListener('create-schema', function() {
           this.set('csvSchema', this._createCsvSchema());
           this.set('_isNewSchema', true);
           this.$.tcsc.getSampleFromCsv();
           this._goToPage(2);
         }.bind(this));
         // When the user chooses to edit an existing schema.
-        this.$.tccc.addEventListener('SELECT_SCHEMA', function(e) {
+        this.$.tccc.addEventListener('select-schema', function(e) {
           var id = this.csvSchemas[e.detail.index].id;
           this.set('csvSchema', this._cloneCsvSchemas(id));
           this.set('_isNewSchema', false);

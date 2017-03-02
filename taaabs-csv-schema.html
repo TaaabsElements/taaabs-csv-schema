@@ -234,15 +234,15 @@
           }
         }.bind(this))
         // When the user chooses to continue the upload process.
-        this.$.tccfi.addEventListener('SAVE_NEXT', function() {
+        this.$.tccfi.addEventListener('finalize-save-next', function() {
           this._saveAndNextStep();
         }.bind(this))
         // When the user chooses to exit the upload process.
-        this.$.tccfi.addEventListener('SAVE_EXIT', function() {
+        this.$.tccfi.addEventListener('finalize-save-exit', function() {
           this._saveAndExit();
         }.bind(this))
         // When the user chooses to export the schema.
-        this.$.tccfi.addEventListener('EXPORT', function() {
+        this.$.tccfi.addEventListener('finalize-export', function() {
           this._exportSchema();
         }.bind(this))
       },
@@ -320,7 +320,7 @@
         this._saveSchemaOntoBase(csvSchemas, this.base).then(function() {
           this.$.tccfi.enableAll();
           this.set('csvSchemas', csvSchemas);
-          this.fire('save-next');
+          this.fire('schema-save-next');
           this.notifyToast(this.localize('save-next-loading-success'),{
             type:'Success',
             timeout: -1

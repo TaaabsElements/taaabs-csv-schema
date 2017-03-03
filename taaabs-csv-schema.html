@@ -81,19 +81,19 @@
       /**
        * Fired when the `taaabs-csv-schema` uploaded the csvSchemas, adn the user chose to continue the process.
        *
-       * @event SAVE_NEXT
+       * @event schema-save-next
        */
 
       /**
        * Fired when the `taaabs-csv-schema` uploaded the csvSchemas, adn the user chose not to continue the process.
        *
-       * @event SAVE_EXIT
+       * @event schema-exit
        */
 
       /**
        * Fired when the user chose to create a new schema.
        *
-       * @event CREATE_SCHEMA
+       * @event schema-create
        */
 
       properties: {
@@ -175,29 +175,6 @@
         }.bind(this))
         // When the user chooses a file.
         this.$.tccf.addEventListener('files-selected', function() {
-          // TODO : Remove later
-          // this._filereader.setCsvUtils({
-          //   file_index: 0,
-          //   separator: ',',
-          //   current_slice: 1,
-          //   last_line: [],
-          //   columns_count: 22
-          // });
-          // var slices = this._filereader.getSlices(0);
-          // var count = 0;
-          // var fr = this._filereader;
-          // function parse(){
-          //   fr.getSliceCsv().then(function(data) {
-          //     console.log(data[0]);
-          //     console.log(data[data.length-1]);
-          //     count++;
-          //     if(count < slices)
-          //       parse();
-          //   }).catch(function(err) {
-          //     console.log(err);
-          //   });
-          // }
-          // parse();
           this._goToPage(1);
         }.bind(this));
         // When the user chooses to create a new schema.
@@ -312,7 +289,7 @@
         else{
           for(var i = 0; i < csvSchemas.length; i++){
             if(csvSchemas[i].id === this.csvSchema.id){
-              csvSchema[i] = this.csvSchema;
+              csvSchemas[i] = this.csvSchema;
             }
           }
         }
@@ -350,7 +327,7 @@
 
         that.base.modify_attributes(new_attr)
           .then(function(data) {
-            that.fire('SAVE_EXIT');
+            that.fire('schema-save-exit');
           })
           .catch(function() {
             console.log(data)

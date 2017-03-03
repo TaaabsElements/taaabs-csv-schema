@@ -27,7 +27,7 @@
     <iron-pages class="fit-width" selected="{{_pageIndex}}">
 
       <div style="max-width: 1000px; margin: 0 auto">
-        <taaabs-csv-collector-files id="tccf" files="{{files}}" file-reader={{_filereader}} language="{{language}}"></taaabs-csv-collector-files>
+        <taaabs-csv-collector-files id="tccf" files="{{files}}" file-reader={{fileReader}} language="{{language}}"></taaabs-csv-collector-files>
       </div>
 
       <div  style="max-width: 1000px; margin: 0 auto">
@@ -36,7 +36,7 @@
       </div>
 
       <div class="fit-width">
-        <taaabs-csv-schema-config id="tcsc" file-reader="[[_filereader]]" csv-schemas="[[csvSchemas]]" csv-schema="{{csvSchema}}" language="{{language}}">
+        <taaabs-csv-schema-config id="tcsc" file-reader="[[fileReader]]" csv-schemas="[[csvSchemas]]" csv-schema="{{csvSchema}}" language="{{language}}">
         </taaabs-csv-schema-config>
       </div>
 
@@ -143,6 +143,16 @@
           type: Boolean,
           notify: true,
           value: false
+        },
+
+        fileReader: {
+          type: Object,
+          notify: true,
+        },
+
+        files: {
+          type: Array,
+          notify: true
         },
 
         /**

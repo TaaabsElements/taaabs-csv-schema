@@ -17,16 +17,16 @@
   "main": "taaabs-csv-schema.html",
   "license": "https://github.com/TaaabsElements/taaabs-csv-schema/LICENSE",
   "dependencies": {
-    "polymer": "polymer/polymer",
+    "polymer": "Polymer/polymer#<2.*",
     "taaabs-themes": "TaaabsElements/taaabs-themes",
-    "paper-input": "PolymerElements/paper-input",
-    "paper-checkbox": "PolymerElements/paper-checkbox",
-    "paper-dropdown-menu": "PolymerElements/paper-dropdown-menu",
-    "iron-icon": "PolymerElements/iron-icon",
-    "iron-icons": "PolymerElements/iron-icons",
-    "app-localize-behavior": "PolymerElements/app-localize-behavior",
+    "paper-input": "PolymerElements/paper-input#<2.*",
+    "paper-checkbox": "PolymerElements/paper-checkbox#<2.*",
+    "paper-dropdown-menu": "PolymerElements/paper-dropdown-menu#<2.*",
+    "iron-icon": "PolymerElements/iron-icon#<2.*",
+    "iron-icons": "PolymerElements/iron-icons#<2.*",
+    "app-localize-behavior": "PolymerElements/app-localize-behavior#<2.*",
     "notify-toast-behavior": "Yepikae/notify-toast-behavior",
-    "paper-button": "PolymerElements/paper-button"
+    "paper-button": "PolymerElements/paper-button#<2.*"
   },
   "devDependencies": {
     "iron-component-page": "polymerelements/iron-component-page#^1.0.0",
